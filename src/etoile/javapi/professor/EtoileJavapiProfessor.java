@@ -7,6 +7,7 @@ package etoile.javapi.professor;
 import etoile.javaapi.question.Question;
 import etoile.javaapi.question.URL;
 import java.sql.SQLException;
+import java.sql.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,7 +39,11 @@ public class EtoileJavapiProfessor {
             System.out.println("Disciplines");
             for(Discipline d: manager.getCurrentProfessor().getDisciplines()){
                 System.out.println("X- " + d.getName());
-            }      
+            }
+            
+            Date begin = new Date(2010, 07, 02);
+
+            manager.userService().addTest("ExperimentalTest", "Teacher", begin, begin, "Description", 1);
                 
                  
          } catch (SQLException ex) {

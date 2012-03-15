@@ -15,6 +15,7 @@ import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
+import java.sql.Date;
 import java.util.LinkedList;
 
 /**
@@ -256,6 +257,56 @@ public class UserService implements Serializable{
     }
     
                 }
+    }
+    
+    
+    //ADD MODULES, TESTS AND QUESTIONS
+    
+    public void addModule(String name, int discipline_id) throws SQLException{
+        String SQL_addModule = SQLInstruct.addModule(name);
+        db.updateDB(SQL_addModule);
+        
+        int module_id;
+        String SQL_moduleId = SQLInstruct.getModuleAdded();
+        ResultSet rSet = db.queryDB(SQL_moduleId);
+        
+        if(rSet.next()){
+        module_id=rSet.getInt(1);
+        String SQL_connectModule=SQLInstruct.connectDisciplineModule(discipline_id, module_id);
+        db.updateDB(SQL_connectModule);
+        }
+    }
+    
+    public void addTest(String name, String professor, Date beginDate, Date finishDate, String description, int module_id) throws SQLException{
+        beginDate.setYear(beginDate.getYear()-1900);
+        beginDate.setMonth(beginDate.getMonth()-1);
+        String SQL_addTest = SQLInstruct.addTest(name, professor, beginDate, finishDate, description);
+        System.out.println("DATE"+beginDate.getDate());
+        db.updateDB(SQL_addTest);
+        
+        int test_id;
+        String SQL_testId = SQLInstruct.getTestAdded();
+        ResultSet rSet = db.queryDB(SQL_testId);
+        
+        if(rSet.next()){
+            test_id = rSet.getInt(1);
+            String SQL_connectTest = SQLInstruct.connectModuleTest(module_id, test_id);
+            db.updateDB(SQL_connectTest);
+        }
+    }
+    
+    public void addOpenQuestion(String question, int test_id, int number) throws SQLException{
+        String SQL_addQUestion = SQLInstruct.addOpenQuestion(question);
+        db.updateDB(SQL_addQUestion);
+        
+        int question_id;
+        String SQL_questionId = SQLInstruct.getOpenQuestionAdded();
+        ResultSet rSet = db.queryDB(SQL_questionId);
+        
+        if(rSet.next()){
+            question_id = rSet.getInt(1);
+            String SQL_connectQuestion = SQLInstruct.connectTestOpenQuestion(test_id, question_id, number);
+        }
     }
    
 }

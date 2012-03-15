@@ -5,6 +5,7 @@
 package db;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 public class SQLInstruct implements Serializable {
 
@@ -183,8 +184,90 @@ public class SQLInstruct implements Serializable {
         return "INSERT INTO onechoicequestion_url( onechoicequestion_id, url_id ) VALUES('"+question_id+"','"+url_id+"');";
     }
 
-
+    // Insert Modules and Tests
     
-
+    // Add Module
+    public static String addModule(String name){
+        return "INSERT INTO module (name) VALUES ('"+name+"');";   
+    }
+    
+    public static String getModuleAdded(){
+        return "SELECT MAX(module.id) FROM module;";
+    }
+    
+    public static String connectDisciplineModule(int discipline_id, int module_id){
+        return "INSERT INTO discipline_module (discipline_id,module_id) VALUES ('"+discipline_id+"','"+module_id+"')";
+    }
+    
+    //Add Test
+    public static String addTest(String name, String professor_name, Date beginDate, Date finishDate, String Description){
+        return "INSERT INTO test (name, author, beginDate, endDate, description) VALUES ('"+name+"','"+professor_name+"','"+beginDate+"','"+finishDate+"', '"+Description+"');";
+    }
+    
+    public static String getTestAdded(){
+        return "SELECT MAX(test.id) FROM test;";
+    }
+    public static String connectModuleTest(int module_id, int test_id){
+        return "INSERT INTO module_test (module_id,test_id) VALUES ('"+module_id+"','"+test_id+"')";
+    }
+    
+    //Add OpenQuestion
+    
+    public static String addOpenQuestion(String question){
+        return "INSERT INTO openquestion (text) VALUES ('"+question+"');";
+    }
+    
+    public static String getOpenQuestionAdded(){
+        return "SELECT MAX(openquestion.id) FROM openquestion;";
+    }
+    
+    public static String connectTestOpenQuestion(int test_id, int question_id, int number){
+        return "INSERT INTO test_openquestion (test_id, openquestion_id, number) VALUES ('"+test_id+"','"+question_id+"','"+number+"');";
+    }
+    
+    
+    //Add OneChoiceQuestion
+    
+    public static String addOneChoiceQuestion(String question){
+        return "INSERT INTO onechoicequestion (text) VALUES ('"+question+"');";
+    }
+    
+    public static String getOneChoiceQuestionAdded(){
+        return "SELECT MAX(onechoicequestion.id) FROM onechoicequestion;";
+    }
+    
+    public static String connectTestOneChoiceQuestion(int test_id, int question_id, int number){
+        return "INSERT INTO test_onechoicequestion (test_id, onechoicequestion_id, number) VALUES ('test_id','onechoicequestion_id','number');";
+    }
+    
+    
+    public static String connectOneChoiceQuestionHypothesis(int question_id, int hypothesis_id){
+        return "INSERT INTO onechoicequestion_hypothesis (onechoicequestion_id, hypothesis_id) VALUES ('"+question_id+"','"+hypothesis_id+"');";
+    }
+    
+    //Add MultipleChoiceQuestion
+    
+    public static String addMultipleChoiceQuestion(String question){
+        return "INSERT INTO multiplechoicequestion (text) VALUES ('"+question+"');";
+    }
+    
+    public static String getMultipleChoiceQuestionAdded(){
+        return "SELECT MAX(multiplechoicequestion.id) FROM multiplechoicequestion;";
+    }
  
+    public static String connectMultipleChoiceQuestionHypothesis(int question_id, int hypothesis_id){
+        return "INSERT INTO multiplechoicequestion_hypothesis (multiplechoicequestion_id, hypothesis_id) VALUES ('"+question_id+"','"+hypothesis_id+"')";
+    }
+    
+    //Multiple and One Choice Questions
+    
+       public static String insertHypothesis(String hypothesis, boolean isCorrect){
+        return "INSERT INTO hypothesis (hypothesis,isCorrect) VALUES ('"+hypothesis+"', '"+isCorrect+"');";
+        }
+    
+       public static String getHypothesisAdded(){
+        return "SELECT MAX(hypothesis.id) FROM hypothesis;";
+        }
+       
+       
 }
