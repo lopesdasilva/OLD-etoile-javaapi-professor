@@ -237,7 +237,7 @@ public class SQLInstruct implements Serializable {
     }
     
     public static String connectTestOneChoiceQuestion(int test_id, int question_id, int number){
-        return "INSERT INTO test_onechoicequestion (test_id, onechoicequestion_id, number) VALUES ('test_id','onechoicequestion_id','number');";
+        return "INSERT INTO test_onechoicequestion (test_id, onechoicequestion_id, number) VALUES ('"+test_id+"','"+question_id+"','"+number+"');";
     }
     
     
@@ -261,7 +261,7 @@ public class SQLInstruct implements Serializable {
     
     //Multiple and One Choice Questions
     
-       public static String insertHypothesis(String hypothesis, boolean isCorrect){
+       public static String insertHypothesis(String hypothesis, int isCorrect){
         return "INSERT INTO hypothesis (hypothesis,isCorrect) VALUES ('"+hypothesis+"', '"+isCorrect+"');";
         }
     

@@ -306,7 +306,47 @@ public class UserService implements Serializable{
         if(rSet.next()){
             question_id = rSet.getInt(1);
             String SQL_connectQuestion = SQLInstruct.connectTestOpenQuestion(test_id, question_id, number);
+            db.updateDB(SQL_connectQuestion);
         }
+    }
+    
+    public void addOneChoiceQuestion(Question question, int test_id, int number) throws SQLException{
+        
+        String SQL_addQuestion = SQLInstruct.addOneChoiceQuestion(question.getText());
+        db.updateDB(SQL_addQuestion);
+        
+        int question_id = 0;
+        String SQL_questionId = SQLInstruct.getOneChoiceQuestionAdded();
+        ResultSet rSet = db.queryDB(SQL_questionId);
+        
+        if(rSet.next()){
+            question_id = rSet.getInt(1);
+            String SQL_connectQuestion = SQLInstruct.connectTestOneChoiceQuestion(test_id, question_id, number);
+            db.updateDB(SQL_connectQuestion);
+        }
+  
+        for(String hyp: question.getPossibleAnswers()){
+            String SQL_addHypotehsis;
+            if(hyp.equals(question.getCorrectAnswer())){
+            SQL_addHypotehsis = SQLInstruct.insertHypothesis(hyp, 1);
+            }else{
+            SQL_addHypotehsis = SQLInstruct.insertHypothesis(hyp, 0);
+            }
+            
+            db.updateDB(SQL_addHypotehsis);
+            
+            String SQL_hypothesisId = SQLInstruct.getHypothesisAdded();
+            ResultSet rSet_hypId = db.queryDB(SQL_hypothesisId);
+            int hyp_id;
+            if(rSet_hypId.next()){
+            hyp_id = rSet_hypId.getInt(1);
+            String SQL_connectHypothesis = SQLInstruct.connectOneChoiceQuestionHypothesis(question_id, hyp_id);
+            db.updateDB(SQL_connectHypothesis);
+            }
+        }
+        
+        
+        
     }
    
 }
