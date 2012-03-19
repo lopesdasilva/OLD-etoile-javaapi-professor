@@ -254,7 +254,10 @@ public class SQLInstruct implements Serializable {
     public static String getMultipleChoiceQuestionAdded(){
         return "SELECT MAX(multiplechoicequestion.id) FROM multiplechoicequestion;";
     }
- 
+    
+    public static String connectTestMultipleChoiceQuestion(int test_id, int question_id, int number){
+        return "INSERT INTO test_multiplechoicequestion (test_id, multiplechoicequestion_id, number) VALUES ('"+test_id+"','"+question_id+"','"+number+"');";
+    }
     public static String connectMultipleChoiceQuestionHypothesis(int question_id, int hypothesis_id){
         return "INSERT INTO multiplechoicequestion_hypothesis (multiplechoicequestion_id, hypothesis_id) VALUES ('"+question_id+"','"+hypothesis_id+"')";
     }
