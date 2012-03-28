@@ -39,31 +39,37 @@ public class EtoileJavapiProfessor {
             manager.setAuthentication("ruip", "40bd001563085fc35165329ea1ff5c5ecbdbbeef");
             manager.userService().updateDisciplines(professor_id);
             
-            System.out.println("Disciplines");
-            for(Discipline d: manager.getCurrentProfessor().getDisciplines()){
-                System.out.println("X- " + d.getName());
-            }
-            
-//            Date begin = new Date(2010, 07, 02);
+//            System.out.println("Disciplines");
+//            for(Discipline d: manager.getCurrentProfessor().getDisciplines()){
+//                System.out.println("X- " + d.getName());
+//            }
+//            
+////            Date begin = new Date(2010, 07, 02);
+////
+////            String correctAnswer = "Correct Answer";
+////            LinkedList<String> answers = new LinkedList<String>();
+////            answers.add("Correct Answer");
+////            answers.add("Wrong Answer");
+////            Question onechoice = new OneChoiceQuestion("ExperimentalOneChoiceQuestion?", 0, answers, correctAnswer);
+////            manager.userService().addOneChoiceQuestion(onechoice, 1,6);
 //
-//            String correctAnswer = "Correct Answer";
-//            LinkedList<String> answers = new LinkedList<String>();
-//            answers.add("Correct Answer");
-//            answers.add("Wrong Answer");
-//            Question onechoice = new OneChoiceQuestion("ExperimentalOneChoiceQuestion?", 0, answers, correctAnswer);
-//            manager.userService().addOneChoiceQuestion(onechoice, 1,6);
-
-              LinkedList<String> correctAnswers = new LinkedList<String>();
-              correctAnswers.add("CorrectAnswer");
-              correctAnswers.add("CorrectAnswer2");
-              
-              LinkedList<String> PossibleAnswers = new LinkedList<String>();
-              PossibleAnswers.add("CorrectAnswer");
-              PossibleAnswers.add("CorrectAnswer2");
-              PossibleAnswers.add("Wrong Answer");
-              
-              Question multiplechoice = new MultipleChoiceQuestion("ExperimentalMultipleChoiceQuestion?",0,PossibleAnswers,correctAnswers);
-              manager.userService().addMultipleChoiceQuestion(multiplechoice, 1, 7);
+//              LinkedList<String> correctAnswers = new LinkedList<String>();
+//              correctAnswers.add("CorrectAnswer");
+//              correctAnswers.add("CorrectAnswer2");
+//              
+//              LinkedList<String> PossibleAnswers = new LinkedList<String>();
+//              PossibleAnswers.add("CorrectAnswer");
+//              PossibleAnswers.add("CorrectAnswer2");
+//              PossibleAnswers.add("Wrong Answer");
+//              
+//              Question multiplechoice = new MultipleChoiceQuestion("ExperimentalMultipleChoiceQuestion?",0,PossibleAnswers,correctAnswers);
+//              manager.userService().addMultipleChoiceQuestion(multiplechoice, 1, 7);
+            
+            
+        LinkedList<Result> results = manager.userService().getOpenQuestionTestResults(1);           
+        for(Result result:results){
+            System.out.println(result.getUsername() + " - " +result.getQuestion()+" - "+result.getAnswer());
+        }
               
                  
          } catch (SQLException ex) {

@@ -7,10 +7,7 @@ package services;
 import db.DBConnect;
 import db.SQLInstruct;
 import etoile.javaapi.question.*;
-import etoile.javapi.professor.Discipline;
-import etoile.javapi.professor.Module;
-import etoile.javapi.professor.Professor;
-import etoile.javapi.professor.Test;
+import etoile.javapi.professor.*;
 import java.io.Serializable;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -81,6 +78,8 @@ public class UserService implements Serializable{
         }
         
     }
+    
+    
 
     public void updateQuestions(Test test) throws SQLException {
         
@@ -387,5 +386,33 @@ public class UserService implements Serializable{
      }
    
 }
+     
+     
+    public LinkedList<Result> getOpenQuestionTestResults(int test_id) throws SQLException{
+        String SQLStatement = SQLInstruct.getOpenAnswers(test_id);
+        ResultSet rSet = db.queryDB(SQLStatement);
+        LinkedList results = new LinkedList<Result>();
+        while(rSet.next()){
+            results.add(new Result(rSet.getString(1), rSet.getString(2), rSet.getString(3)));
+        }
+ 
+        return results;
+    }
+     
+     
+     
+     
+
+
+
+
+
+
+
+
+
+
+
+
      
 }

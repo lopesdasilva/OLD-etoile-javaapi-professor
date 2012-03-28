@@ -6,6 +6,7 @@ package db;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.HashMap;
 
 public class SQLInstruct implements Serializable {
 
@@ -33,6 +34,8 @@ public class SQLInstruct implements Serializable {
         return "SELECT course.id,course.name from student,student_course, course "
                 + "WHERE student.id='" + student_id + "' AND student.id=student_course.student_id "
                 + "AND student_course.course_id=course.id";
+        
+       
     }
 
     public static String getDisciplines(int professor_id) {
@@ -271,6 +274,12 @@ public class SQLInstruct implements Serializable {
        public static String getHypothesisAdded(){
         return "SELECT MAX(hypothesis.id) FROM hypothesis;";
         }
+       
+    //GET TEST RESULTS
+       
+    public static String getOpenAnswers(int test_id){
+        return "SELECT student.username, openquestion.text, openanswer.text from student, openanswer, test, test_openquestion, openquestion WHERE  student.id=openanswer.student_id AND test.id='"+test_id+"' AND test.id=test_openquestion.test_id AND test_openquestion.openquestion_id=openquestion.id AND openquestion.id = openanswer.openquestion_id ORDER BY student.id";
+    }  
        
        
 }
