@@ -66,11 +66,14 @@ public class EtoileJavapiProfessor {
 //              manager.userService().addMultipleChoiceQuestion(multiplechoice, 1, 7);
             
             
-        LinkedList<Result> results = manager.userService().getOpenQuestionTestResults(1);           
-        for(Result result:results){
-            System.out.println(result.getUsername() + " - " +result.getQuestion()+" - "+result.getAnswer());
-        }
-              
+//        LinkedList<Result> results = manager.userService().getOpenQuestionTestResults(1);           
+//        for(Result result:results){
+//            System.out.println(result.getUsername() + " - " +result.getQuestion()+" - "+result.getAnswer());
+//        }
+          
+            
+            
+         manager.userService().removeTest(2,14);
                  
          } catch (SQLException ex) {
             Logger.getLogger(EtoileJavapiProfessor.class.getName()).log(Level.SEVERE, null, ex);

@@ -225,7 +225,6 @@ public class UserService implements Serializable{
     }
     
     public void addURL(String url_name, String url , QuestionType type, int question_id ) throws SQLException{
-        
         String sqlStatement = SQLInstruct.addUrl(url_name, url);
         db.updateDB(sqlStatement);
                 String sqlGetUrl = SQLInstruct.getLastURLInserted();
@@ -397,6 +396,19 @@ public class UserService implements Serializable{
         }
  
         return results;
+    }
+    
+    //REMOVER MODULOS e TESTES
+    
+    public void removeModule(int discipline_id, int module_id) throws SQLException{
+        String SQLStatement = SQLInstruct.removeModule(discipline_id, module_id);
+        db.updateDB(SQLStatement);
+    }
+    
+    
+    public void removeTest(int module_id,int test_id) throws SQLException{
+        String SQLStatement = SQLInstruct.removeTest(module_id,test_id);
+        db.updateDB(SQLStatement);
     }
      
      

@@ -279,7 +279,16 @@ public class SQLInstruct implements Serializable {
        
     public static String getOpenAnswers(int test_id){
         return "SELECT student.username, openquestion.text, openanswer.text from student, openanswer, test, test_openquestion, openquestion WHERE  student.id=openanswer.student_id AND test.id='"+test_id+"' AND test.id=test_openquestion.test_id AND test_openquestion.openquestion_id=openquestion.id AND openquestion.id = openanswer.openquestion_id ORDER BY student.id";
-    }  
-       
+    }
+    
+    //DELETE MODULES AND TESTS
+    
+    public static String removeModule(int discipline_id, int module_id){
+        return "DELETE FROM discipline_module WHERE discipline_id = '"+discipline_id+"' AND module_id='"+module_id+"'";
+    }
+     
+    public static String removeTest(int module_id, int test_id){
+        return "DELETE FROM module_test WHERE module_id='"+module_id+"' AND test_id='"+test_id+"'";
+    }
        
 }
