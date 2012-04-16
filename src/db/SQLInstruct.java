@@ -203,8 +203,8 @@ public class SQLInstruct implements Serializable {
     }
     
     //Add Test
-    public static String addTest(String name, String professor_name, Date beginDate, Date finishDate, String Description){
-        return "INSERT INTO test (name, author, beginDate, endDate, description) VALUES ('"+name+"','"+professor_name+"','"+beginDate+"','"+finishDate+"', '"+Description+"');";
+    public static String addTest(String name, String professor_name, Date beginDate, Date finishDate, String Description, String url){
+        return "INSERT INTO test (name, author, beginDate, endDate, description, url) VALUES ('"+name+"','"+professor_name+"','"+beginDate+"','"+finishDate+"', '"+Description+"', '"+url+"');";
     }
     
     public static String getTestAdded(){

@@ -275,11 +275,11 @@ public class UserService implements Serializable{
         }
     }
     
-    public int addTest(String name, String professor, Date beginDate, Date finishDate, String description, int module_id) throws SQLException{
+    public int addTest(String name, String professor, Date beginDate, Date finishDate, String description, int module_id, String url) throws SQLException{
         beginDate.setYear(beginDate.getYear()-1900);
         beginDate.setMonth(beginDate.getMonth()-1);
         
-        String SQL_addTest = SQLInstruct.addTest(name, professor, beginDate, finishDate, description);
+        String SQL_addTest = SQLInstruct.addTest(name, professor, beginDate, finishDate, description,url);
         System.out.println("DATE"+beginDate.getDate());
         db.updateDB(SQL_addTest);
         
