@@ -401,6 +401,16 @@ public class UserService implements Serializable{
     //REMOVER MODULOS e TESTES
     
     public void removeModule(int discipline_id, int module_id) throws SQLException{
+        for( Discipline d : current_professor.getDisciplines()){
+            if( d.getId()==discipline_id){
+                for( Module m : d.getModules()){
+                    if(m.getId()==module_id){
+                        d.getModules().remove(m);
+                    }
+                }
+            }
+        }
+        System.out.println();
         String SQLStatement = SQLInstruct.removeModule(discipline_id, module_id);
         db.updateDB(SQLStatement);
     }

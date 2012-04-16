@@ -38,7 +38,8 @@ public class EtoileJavapiProfessor {
 
             manager.setAuthentication("ruip", "40bd001563085fc35165329ea1ff5c5ecbdbbeef");
             manager.userService().updateDisciplines(professor_id);
-            
+         
+            manager.userService().removeModule(2, 19);
 //            System.out.println("Disciplines");
 //            for(Discipline d: manager.getCurrentProfessor().getDisciplines()){
 //                System.out.println("X- " + d.getName());
