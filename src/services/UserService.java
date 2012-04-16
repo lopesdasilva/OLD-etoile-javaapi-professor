@@ -431,24 +431,8 @@ public class UserService implements Serializable{
             }
         }
 
-        //String SQLStatement = SQLInstruct.removeTest(module_id,test_id);
-        //db.updateDB(SQLStatement);
+        String SQLStatement = SQLInstruct.removeTest(module_id,test_id);
+        db.updateDB(SQLStatement);
     }
-     
-     
-     
-     
-
-
-
-
-
-
-
-
-
-
-
-
-     
+    
 }
