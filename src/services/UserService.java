@@ -416,9 +416,23 @@ public class UserService implements Serializable{
     }
     
     
-    public void removeTest(int module_id,int test_id) throws SQLException{
-        String SQLStatement = SQLInstruct.removeTest(module_id,test_id);
-        db.updateDB(SQLStatement);
+    public void removeTest(int discipline_id, int module_id,int test_id) throws SQLException{
+         for( Discipline d : current_professor.getDisciplines()){
+            if( d.getId()==discipline_id){
+                for( Module m : d.getModules()){
+                    if(m.getId()==module_id){
+                        for( Test t: m.getTests()){
+                            if(t.getId()==test_id){
+                               m.getTests().remove(t);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        //String SQLStatement = SQLInstruct.removeTest(module_id,test_id);
+        //db.updateDB(SQLStatement);
     }
      
      

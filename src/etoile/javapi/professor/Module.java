@@ -33,7 +33,7 @@ public class Module implements Serializable{
         return name;
     }
 
-    public LinkedList<Test> getTests() {
+        public LinkedList<Test> getTests() {
         return tests;
     }
 
