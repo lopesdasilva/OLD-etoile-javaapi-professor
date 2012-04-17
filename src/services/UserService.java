@@ -24,6 +24,7 @@ public class UserService implements Serializable{
     DBConnect db;
     Professor current_professor;
 
+
     public UserService(DBConnect db, Professor current_professor) {
         this.db = db;
         this.current_professor = current_professor;
@@ -40,6 +41,18 @@ public class UserService implements Serializable{
         db.updateDB(statmentAddCourse);
         }
         
+    }
+    public void getNews() throws SQLException{
+        ResultSet rSet = db.queryDB(SQLInstruct.getNews());
+        while(rSet.next()){
+           current_professor.addNews(new News(rSet.getInt(1),rSet.getString(2),rSet.getString(3),rSet.getString(4),rSet.getString(5))); 
+        }
+    }
+        
+    public void insertNews(String title, String news, String url) throws SQLException{
+        String sqlStatement = SQLInstruct.insertNews(title,news,url,current_professor.getFirstname());
+        db.updateDB(sqlStatement);
+        current_professor.addNews(new News(0,title,news,url,current_professor.getFirstname()));
     }
 
     

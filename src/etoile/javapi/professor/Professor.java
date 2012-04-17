@@ -17,8 +17,13 @@ public class Professor implements Serializable {
     private final String email;
     private final String firstname;
     private final String lastname;
+
+    public LinkedList<News> getNews() {
+        return news;
+    }
     private final int id;
     private LinkedList<Discipline> disciplines = new LinkedList<Discipline>();
+    LinkedList<News> news = new LinkedList<News>();
     
     
     public Professor(int id,String username, String password, String firstname, String lastname, String email) {
@@ -60,6 +65,10 @@ public class Professor implements Serializable {
     
     public LinkedList<Discipline> getDisciplines(){
         return disciplines;
+    }
+    
+    public void addNews(News n){
+        news.add(n);
     }
 
     

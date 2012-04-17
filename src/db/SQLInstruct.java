@@ -19,8 +19,8 @@ public class SQLInstruct implements Serializable {
 //    public static final String dbUsername = "root";
 //    public static final String dbPassword = "";
     //public static final String dbPassword = "etoile";
-    public static final String dbAdress = "jdbc:mysql://localhost:3306/etoilepl_etoilev3";
-//    public static final String dbAdress = "jdbc:mysql://84.40.22.48:3306/etoilepl_etoilev3";
+//    public static final String dbAdress = "jdbc:mysql://localhost:3306/etoilepl_etoilev3";
+    public static final String dbAdress = "jdbc:mysql://84.40.22.48:3306/etoilepl_etoilev3";
     public static final String dbUsername = "etoilepl_etoile";
     public static final String dbPassword = "WryDiluteQuirkyRider";
     
@@ -30,7 +30,10 @@ public class SQLInstruct implements Serializable {
                 + "' AND professor.password='" + parseSHA1Password + "'";
 
     }
-
+        public static String getNews(){
+       return "SELECT id,title,news,url, professor FROM news"; 
+    }
+        
     public static String getCourses(int student_id) {
         return "SELECT course.id,course.name from student,student_course, course "
                 + "WHERE student.id='" + student_id + "' AND student.id=student_course.student_id "
@@ -290,6 +293,10 @@ public class SQLInstruct implements Serializable {
      
     public static String removeTest(int module_id, int test_id){
         return "DELETE FROM module_test WHERE module_id='"+module_id+"' AND test_id='"+test_id+"'";
+    }
+
+    public static String insertNews(String title, String news, String url, String professor) {
+        return "INSERT INTO news (title,news,url,professor) VALUES('"+title+"','"+news+"','"+url+"','"+professor+"')";
     }
        
 }

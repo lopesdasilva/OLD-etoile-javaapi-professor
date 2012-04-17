@@ -72,9 +72,13 @@ public class EtoileJavapiProfessor {
 //            System.out.println(result.getUsername() + " - " +result.getQuestion()+" - "+result.getAnswer());
 //        }
           
+          //manager.userService().insertNews("First Test2", "This is the first insertURL Test.", "www.barulhentos.org");  
             
-            
-         manager.userService().removeTest(1,1,23);
+          manager.userService().getNews();
+          for(News n : manager.current_professor.getNews()){
+              System.out.println("NEW: " + n.getTitle());
+          }
+                  
                  
          } catch (SQLException ex) {
             Logger.getLogger(EtoileJavapiProfessor.class.getName()).log(Level.SEVERE, null, ex);
