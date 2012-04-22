@@ -17,7 +17,7 @@ public class News {
     String text;
     String professor;
 
-    public News(int id, String title, String url, String text, String professor) {
+    public News(int id, String title, String text, String url, String professor) {
         this.id = id;
         this.title = title;
         this.url = url;

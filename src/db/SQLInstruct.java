@@ -24,6 +24,7 @@ public class SQLInstruct implements Serializable {
     public static final String dbUsername = "etoilepl_etoile";
     public static final String dbPassword = "WryDiluteQuirkyRider";
     
+    
     // fazer no cmd ssh -L 3306:localhost:3306 -l user v3.etoilecascadesideas.eu
     public static String login(String username, String parseSHA1Password) {
         return "SELECT id,username,password,firstname,surname,email FROM professor WHERE professor.username='" + username
