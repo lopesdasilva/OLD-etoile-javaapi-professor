@@ -273,7 +273,10 @@ public class UserService implements Serializable{
     
     //ADD MODULES, TESTS AND QUESTIONS
     
-    public void addModule(String name, int discipline_id) throws SQLException{
+    public void addModule(String name, Discipline discipline) throws SQLException{
+        
+        discipline.modules=new LinkedList<Module>();
+        
         String SQL_addModule = SQLInstruct.addModule(name);
         db.updateDB(SQL_addModule);
         
@@ -283,12 +286,15 @@ public class UserService implements Serializable{
         
         if(rSet.next()){
         module_id=rSet.getInt(1);
-        String SQL_connectModule=SQLInstruct.connectDisciplineModule(discipline_id, module_id);
+        String SQL_connectModule=SQLInstruct.connectDisciplineModule(discipline.getId(), module_id);
         db.updateDB(SQL_connectModule);
         }
+        updateModules(discipline);
     }
     
     public int addTest(String name, String professor, Date beginDate, Date finishDate, String description, int module_id, String url) throws SQLException{
+       
+        
         beginDate.setYear(beginDate.getYear()-1900);
         beginDate.setMonth(beginDate.getMonth()-1);
         
@@ -413,39 +419,22 @@ public class UserService implements Serializable{
     
     //REMOVER MODULOS e TESTES
     
-    public void removeModule(int discipline_id, int module_id) throws SQLException{
-        for( Discipline d : current_professor.getDisciplines()){
-            if( d.getId()==discipline_id){
-                for( Module m : d.getModules()){
-                    if(m.getId()==module_id){
-                        d.getModules().remove(m);
-                    }
-                }
-            }
-        }
+    public void removeModule(Discipline discipline, int module_id) throws SQLException{
+        discipline.modules=new LinkedList<Module>();
+        
+        
         System.out.println();
-        String SQLStatement = SQLInstruct.removeModule(discipline_id, module_id);
+        String SQLStatement = SQLInstruct.removeModule(discipline.getId(), module_id);
         db.updateDB(SQLStatement);
+        updateModules(discipline);
     }
     
     
-    public void removeTest(int discipline_id, int module_id,int test_id) throws SQLException{
-         for( Discipline d : current_professor.getDisciplines()){
-            if( d.getId()==discipline_id){
-                for( Module m : d.getModules()){
-                    if(m.getId()==module_id){
-                        for( Test t: m.getTests()){
-                            if(t.getId()==test_id){
-                               m.getTests().remove(t);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        String SQLStatement = SQLInstruct.removeTest(module_id,test_id);
+    public void removeTest(Module module,int test_id) throws SQLException{
+        module.tests=new LinkedList<Test>();
+        String SQLStatement = SQLInstruct.removeTest(module.getId(),test_id);
         db.updateDB(SQLStatement);
+        updateTests(module);
     }
     
 }
