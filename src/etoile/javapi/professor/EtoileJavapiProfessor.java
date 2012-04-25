@@ -74,10 +74,18 @@ public class EtoileJavapiProfessor {
           
           //manager.userService().insertNews("First Test2", "This is the first insertURL Test.", "www.barulhentos.org");  
             
-          manager.userService().getNews();
-          for(News n : manager.current_professor.getNews()){
-              System.out.println("NEW: " + n.getTitle());
-          }
+//          manager.userService().getNews();
+//          for(News n : manager.current_professor.getNews()){
+//              System.out.println("NEW: " + n.getTitle());
+//          }
+            manager.userService().updateDisciplines(professor_id);
+            for(Discipline d :manager.current_professor.getDisciplines()){
+                System.out.println(d.getId());
+                System.out.println(d.getDescription());
+                System.out.println(d.getName());
+                System.out.println("");
+            }
+
                   
                  
          } catch (SQLException ex) {

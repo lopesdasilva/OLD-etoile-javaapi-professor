@@ -62,7 +62,7 @@ public class UserService implements Serializable{
         ResultSet rSet = db.queryDB(sqlStatement);
 
         while (rSet.next()) {
-            Discipline d = new Discipline(rSet.getInt(1), rSet.getString(2));
+            Discipline d = new Discipline(rSet.getInt(1),rSet.getString(2) ,rSet.getString(3));
             current_professor.addDiscipline(d);
             updateModules(d);
         }
@@ -435,6 +435,12 @@ public class UserService implements Serializable{
         String SQLStatement = SQLInstruct.removeTest(module.getId(),test_id);
         db.updateDB(SQLStatement);
         updateTests(module);
+    }
+    
+    public void changeDisciplineDescription(Discipline d, String description) throws SQLException{
+        String SQLStatement = SQLInstruct.getDiscipline(d.getId(),description);
+        db.updateDB(SQLStatement);
+        d.setDescription(description);
     }
     
 }

@@ -19,8 +19,8 @@ public class SQLInstruct implements Serializable {
 //    public static final String dbUsername = "root";
 //    public static final String dbPassword = "";
     //public static final String dbPassword = "etoile";
-    public static final String dbAdress = "jdbc:mysql://localhost:3306/etoilepl_etoilev3";
-//    public static final String dbAdress = "jdbc:mysql://84.40.22.48:3306/etoilepl_etoilev3";
+//    public static final String dbAdress = "jdbc:mysql://localhost:3306/etoilepl_etoilev3";
+    public static final String dbAdress = "jdbc:mysql://84.40.22.48:3306/etoilepl_etoilev3";
     public static final String dbUsername = "etoilepl_etoile";
     public static final String dbPassword = "WryDiluteQuirkyRider";
     
@@ -44,7 +44,7 @@ public class SQLInstruct implements Serializable {
     }
 
     public static String getDisciplines(int professor_id) {
-        return "SELECT discipline.id, discipline.name FROM professor, professor_discipline, discipline WHERE "
+        return "SELECT discipline.id, discipline.description,discipline.name FROM professor, professor_discipline, discipline WHERE "
                 + "professor.id='" + professor_id + "' AND professor_discipline.professor_id = professor.id AND "
                 + "professor_discipline.discipline_id = discipline.id";
     }
@@ -299,5 +299,12 @@ public class SQLInstruct implements Serializable {
     public static String insertNews(String title, String news, String url, String professor) {
         return "INSERT INTO news (title,news,url,professor) VALUES('"+title+"','"+news+"','"+url+"','"+professor+"')";
     }
+
+    public static String getDiscipline(int id,String description) {
+        return "UPDATE discipline SET discipline.description='"+description+"' WHERE discipline.id='"+id+"'";
+    }
        
 }
+
+
+

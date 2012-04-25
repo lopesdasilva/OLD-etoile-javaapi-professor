@@ -15,15 +15,24 @@ import java.util.LinkedList;
 public class Discipline implements Serializable{
     public String name;
     public int id;
+    public String description;
     
     public LinkedList<Module> modules= new LinkedList<Module>();
 
-    public Discipline(int id, String name) {
+    public Discipline(int id, String description, String name) {
         this.name = name;
         this.id = id;
+        this.description=description;
     }
 
-     
+    public String getDescription(){
+       return description;
+    }
+    
+    public void setDescription(String newdescription){
+        this.description=newdescription;
+    }
+    
     public int getId() {
         return id;
     }
