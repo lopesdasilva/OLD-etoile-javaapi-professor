@@ -78,12 +78,14 @@ public class EtoileJavapiProfessor {
 //          for(News n : manager.current_professor.getNews()){
 //              System.out.println("NEW: " + n.getTitle());
 //          }
-            manager.userService().updateDisciplines(professor_id);
-            for(Discipline d :manager.current_professor.getDisciplines()){
-                System.out.println(d.getId());
-                System.out.println(d.getDescription());
-                System.out.println(d.getName());
-                System.out.println("");
+            manager.userService().getNews();
+            for(News n : manager.current_professor.news){
+                System.out.println(n.getId());
+                if(n.getId()==18) manager.userService().removeNews(n);
+            }
+            System.out.println("DEPOIS");
+            for(News n : manager.current_professor.news){
+                System.out.println(n.getId());
             }
 
                   

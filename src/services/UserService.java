@@ -54,6 +54,12 @@ public class UserService implements Serializable{
         db.updateDB(sqlStatement);
         current_professor.addNews(new News(0,title,news,url,current_professor.getFirstname()));
     }
+    
+    public void removeNews(News news) throws SQLException{
+        String sqlStatement = SQLInstruct.removeNews(news.getId());
+        db.updateDB(sqlStatement);
+        current_professor.removeNews(news);
+    }
 
     
     //TODO: FIX ME!

@@ -70,6 +70,10 @@ public class Professor implements Serializable {
     public void addNews(News n){
         news.add(n);
     }
+    
+    public void removeNews(News n){
+        news.remove(n);
+    }
 
     
 }

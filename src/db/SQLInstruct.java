@@ -303,6 +303,10 @@ public class SQLInstruct implements Serializable {
     public static String getDiscipline(int id,String description) {
         return "UPDATE discipline SET discipline.description='"+description+"' WHERE discipline.id='"+id+"'";
     }
+
+    public static String removeNews(int id) {
+        return "DELETE FROM news WHERE id='"+id+"'";
+    }
        
 }
 
