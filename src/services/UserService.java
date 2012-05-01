@@ -411,7 +411,18 @@ public class UserService implements Serializable{
    
 }
      
-     
+    public LinkedList<Result> getResults(int test_id) throws SQLException{
+        LinkedList<Result> results = new LinkedList<Result>();
+        LinkedList<Result> openanswers = getOpenQuestionTestResults(test_id);
+        LinkedList<Result> onechoiceanswers = getOneChoiceQuestionTestResults(test_id);
+        for(Result r: openanswers){
+            results.add(r);
+        }
+        for(Result r: onechoiceanswers){
+            results.add(r);
+        }
+        return results;
+    } 
     public LinkedList<Result> getOpenQuestionTestResults(int test_id) throws SQLException{
         String SQLStatement = SQLInstruct.getOpenAnswers(test_id);
         ResultSet rSet = db.queryDB(SQLStatement);
@@ -420,6 +431,17 @@ public class UserService implements Serializable{
             results.add(new Result(rSet.getString(1), rSet.getString(2), rSet.getString(3)));
         }
  
+        return results;
+    }
+    
+    public LinkedList<Result> getOneChoiceQuestionTestResults(int test_id) throws SQLException{
+        String SQLStatement = SQLInstruct.getOneChoiceAnswers(test_id);
+        ResultSet rSet = db.queryDB(SQLStatement);
+        LinkedList results = new LinkedList<Result>();
+        while(rSet.next()){
+            results.add(new Result(rSet.getString(1),rSet.getString(2),rSet.getString(3)));
+        }
+        
         return results;
     }
     
