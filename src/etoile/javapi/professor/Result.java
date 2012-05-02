@@ -32,6 +32,10 @@ public class Result{
         this.question=question;
         this.answer=answer;
     }
+
+    public void setAnswer(String new_answer) {
+        this.answer=new_answer;
+    }
     
     
 }

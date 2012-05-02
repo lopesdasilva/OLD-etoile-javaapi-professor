@@ -415,10 +415,14 @@ public class UserService implements Serializable{
         LinkedList<Result> results = new LinkedList<Result>();
         LinkedList<Result> openanswers = getOpenQuestionTestResults(test_id);
         LinkedList<Result> onechoiceanswers = getOneChoiceQuestionTestResults(test_id);
+        LinkedList<Result> multiplechoiceanswers = getMultipleChoiceQuestionTestResults(test_id);
         for(Result r: openanswers){
             results.add(r);
         }
         for(Result r: onechoiceanswers){
+            results.add(r);
+        }
+        for(Result r: multiplechoiceanswers){
             results.add(r);
         }
         return results;
@@ -445,6 +449,24 @@ public class UserService implements Serializable{
         return results;
     }
     
+    public LinkedList<Result> getMultipleChoiceQuestionTestResults(int test_id) throws SQLException{
+        String SQLSatement = SQLInstruct.getMultipleChoiceAnswers(test_id);
+        ResultSet rSet = db.queryDB(SQLSatement);
+        LinkedList<Result> results = new LinkedList<Result>();
+        while(rSet.next()){
+            boolean existe = false;
+            for(Result r: results){
+                if(r.getUsername().equals(rSet.getString(1)) && r.getQuestion().equals(rSet.getString(2))){
+                    existe=true;
+                    r.setAnswer(r.getAnswer()+", "+rSet.getString(3));
+                }
+            }
+            if(!existe)results.add(new Result(rSet.getString(1),rSet.getString(2),rSet.getString(3)));
+                
+        }
+        return results;
+    }
+    
     //REMOVER MODULOS e TESTES
     
     public void removeModule(Discipline discipline, int module_id) throws SQLException{
@@ -466,6 +488,7 @@ public class UserService implements Serializable{
     }
     
     public void changeDisciplineDescription(Discipline d, String description) throws SQLException{
+        description=description.replace("'", "''");
         String SQLStatement = SQLInstruct.getDiscipline(d.getId(),description);
         db.updateDB(SQLStatement);
         d.setDescription(description);

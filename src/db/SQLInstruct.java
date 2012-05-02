@@ -290,6 +290,10 @@ public class SQLInstruct implements Serializable {
         return "SELECT student.username, onechoicequestion.text, onechoiceanswer.text from student, onechoiceanswer, test, test_onechoicequestion, onechoicequestion WHERE  student.id=onechoiceanswer.student_id AND test.id='"+test_id+"' AND test.id=test_onechoicequestion.test_id AND test_onechoicequestion.onechoicequestion_id=onechoicequestion.id AND onechoicequestion.id = onechoiceanswer.onechoicequestion_id ORDER BY student.id";
     }
     
+    public static String getMultipleChoiceAnswers(int test_id){
+        return "SELECT student.username, multiplechoicequestion.text, multiplechoiceanswer.text from student, multiplechoiceanswer, test, test_multiplechoicequestion, multiplechoicequestion WHERE  student.id=multiplechoiceanswer.student_id AND test.id='"+test_id+"' AND test.id=test_multiplechoicequestion.test_id AND test_multiplechoicequestion.multiplechoicequestion_id=multiplechoicequestion.id AND multiplechoicequestion.id = multiplechoiceanswer.multiplechoicequestion_id ORDER BY student.id";
+    }
+    
     //DELETE MODULES AND TESTS
     
     public static String removeModule(int discipline_id, int module_id){
