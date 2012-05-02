@@ -71,8 +71,12 @@ public class Professor implements Serializable {
         news.add(n);
     }
     
-    public void removeNews(News n){
-        news.remove(n);
+    public void removeNews(int id){
+        for(News n : news){
+            if(n.getId()==id){
+                news.remove(n);
+            }
+        }
     }
 
     

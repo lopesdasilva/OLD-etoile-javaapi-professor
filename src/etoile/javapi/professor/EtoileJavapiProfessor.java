@@ -79,10 +79,11 @@ public class EtoileJavapiProfessor {
 //              System.out.println("NEW: " + n.getTitle());
 //          }
             manager.userService().getNews();
+            System.out.println("ANTES");
             for(News n : manager.current_professor.news){
                 System.out.println(n.getId());
-                if(n.getId()==18) manager.userService().removeNews(n);
             }
+            manager.userService().removeNews(24);
             System.out.println("DEPOIS");
             for(News n : manager.current_professor.news){
                 System.out.println(n.getId());
