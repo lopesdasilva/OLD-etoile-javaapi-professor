@@ -93,7 +93,7 @@ public class UserService implements Serializable{
         while (rSet.next()) {
 
 
-            module.addTest(new Test(rSet.getInt(1), rSet.getString(2), rSet.getString(3), rSet.getString(4), rSet.getDate(5), rSet.getDate(6)));
+            module.addTest(new Test(rSet.getInt(1), rSet.getString(2), rSet.getString(3), rSet.getString(4), rSet.getDate(5), rSet.getDate(6), rSet.getInt(7)));
         }
         
     }
@@ -298,14 +298,17 @@ public class UserService implements Serializable{
         updateModules(discipline);
     }
     
-    public int addTest(String name, String professor, Date beginDate, Date finishDate, String description, int module_id, String url) throws SQLException{
+    public int addTest(String name, String professor, Date beginDate, Date finishDate, String description, int module_id, String url, boolean showURLS) throws SQLException{
        
         
         beginDate.setYear(beginDate.getYear()-1900);
         beginDate.setMonth(beginDate.getMonth()-1);
-        
-        String SQL_addTest = SQLInstruct.addTest(name, professor, beginDate, finishDate, description,url);
-        System.out.println("DATE"+beginDate.getDate());
+        String SQL_addTest="";
+        if(showURLS){
+        SQL_addTest = SQLInstruct.addTest(name, professor, beginDate, finishDate, description,url,1);
+        }else{
+        SQL_addTest = SQLInstruct.addTest(name, professor, beginDate, finishDate, description,url,0);
+        }
         db.updateDB(SQL_addTest);
         
         int test_id = 0;

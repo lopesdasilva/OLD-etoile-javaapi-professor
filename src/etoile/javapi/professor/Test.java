@@ -27,6 +27,8 @@ public class Test implements Serializable{
     
     public Date endDate;
     
+    public boolean showURLS=true;
+    
     public LinkedList<Question> questions= new LinkedList<Question>();
 
     public Test(int id,String name, String author) {
@@ -35,13 +37,15 @@ public class Test implements Serializable{
         this.author = author;
     }
 
-    public Test(int id, String name, String author,String description, Date beginDate, Date endDate) {
+    public Test(int id, String name, String author,String description, Date beginDate, Date endDate, int showURLS) {
         this.name = name;
         this.id = id;
         this.author = author;
         this.description = description;
         this.beginDate = beginDate;
         this.endDate = endDate;
+        
+        if(showURLS==0) this.showURLS = false;
                 
     }
     

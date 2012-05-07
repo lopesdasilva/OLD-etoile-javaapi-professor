@@ -56,7 +56,7 @@ public class SQLInstruct implements Serializable {
     }
 
     public static String getTests(int module_id) {
-        return "SELECT test.id, test.name, test.author,description, test.beginDate,test.endDate "
+        return "SELECT test.id, test.name, test.author,description, test.beginDate,test.endDate , test.hasURLS"
                 + "FROM module,module_test,test WHERE "
                 + "module.id='" + module_id + "' AND module.id=module_test.module_id AND module_test.test_id=test.id";
     }
@@ -208,8 +208,8 @@ public class SQLInstruct implements Serializable {
     }
     
     //Add Test
-    public static String addTest(String name, String professor_name, Date beginDate, Date finishDate, String Description, String url){
-        return "INSERT INTO test (name, author, beginDate, endDate, description, url) VALUES ('"+name+"','"+professor_name+"','"+beginDate+"','"+finishDate+"', '"+Description+"', '"+url+"');";
+    public static String addTest(String name, String professor_name, Date beginDate, Date finishDate, String Description, String url, int hasURLS){
+        return "INSERT INTO test (name, author, beginDate, endDate, description, url, hasURLS) VALUES ('"+name+"','"+professor_name+"','"+beginDate+"','"+finishDate+"', '"+Description+"', '"+url+"' , '"+hasURLS+"');";
     }
     
     public static String getTestAdded(){

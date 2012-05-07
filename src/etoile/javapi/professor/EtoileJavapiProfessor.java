@@ -40,10 +40,18 @@ public class EtoileJavapiProfessor {
             manager.userService().updateDisciplines(professor_id);
             
             
-//            System.out.println("Disciplines");
-//            for(Discipline d: manager.getCurrentProfessor().getDisciplines()){
-//                System.out.println("X- " + d.getName());
-//            }
+            System.out.println("Disciplines");
+            for(Discipline d: manager.getCurrentProfessor().getDisciplines()){
+                System.out.println("X- " + d.getName());
+                if(d.getName().equals("Hypernetworks Course")){
+                    d.getModules();
+                    for(Module m : d.modules){
+                        if(m.getName().equals("Hypergraphs and Galois Lattice")){
+                            manager.userService().addTest("Test for Testing", "professor", new Date(2012,12,12), new Date(2011,11,11), "Description", m.getId(), "", false);
+                        }
+                    }
+                }
+            }
 //            
 ////            Date begin = new Date(2010, 07, 02);
 ////
