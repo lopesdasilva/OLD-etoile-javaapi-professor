@@ -56,7 +56,7 @@ public class SQLInstruct implements Serializable {
     }
 
     public static String getTests(int module_id) {
-        return "SELECT test.id, test.name, test.author,description, test.beginDate,test.endDate , test.hasURLS"
+        return "SELECT test.id, test.name, test.author,description, test.beginDate,test.endDate , test.hasURLS "
                 + "FROM module,module_test,test WHERE "
                 + "module.id='" + module_id + "' AND module.id=module_test.module_id AND module_test.test_id=test.id";
     }
