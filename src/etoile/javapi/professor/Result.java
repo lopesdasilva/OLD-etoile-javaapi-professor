@@ -12,6 +12,18 @@ package etoile.javapi.professor;
 public class Result{
     
     String username;
+    String question;
+    String answer;
+    String useremail;
+    int questionnumber;
+
+    public int getQuestionnumber() {
+        return questionnumber;
+    }
+
+    public String getUseremail() {
+        return useremail;
+    }
 
     public String getAnswer() {
         return answer;
@@ -24,13 +36,14 @@ public class Result{
     public String getUsername() {
         return username;
     }
-    String question;
-    String answer;
+
     
-    public Result(String username, String question,String answer){
+    public Result(String username, String question,String answer, String useremail, int questionnumber){
         this.username=username;
         this.question=question;
         this.answer=answer;
+        this.useremail=useremail;
+        this.questionnumber=questionnumber;
     }
 
     public void setAnswer(String new_answer) {

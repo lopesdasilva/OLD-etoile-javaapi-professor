@@ -42,12 +42,19 @@ public class EtoileJavapiProfessor {
             
             System.out.println("Disciplines");
             for(Discipline d: manager.getCurrentProfessor().getDisciplines()){
-                System.out.println("X- " + d.getName());
+                System.out.println("Modules");
                 if(d.getName().equals("Hypernetworks Course")){
                     d.getModules();
                     for(Module m : d.modules){
                         if(m.getName().equals("Hypergraphs and Galois Lattice")){
-                            manager.userService().addTest("Test for Testing", "professor", new Date(2012,12,12), new Date(2011,11,11), "Description", m.getId(), "", false);
+                            System.out.println("Tests"+m.getTests().size());
+                            manager.userService().updateTests(m);
+                            for(Test t : m.getTests()){
+                                if(t.getName().equals("Test For Testing 4")){
+                                    System.out.println(manager.userService().getResultsTXT(d.getId(),m.getId(),t.getId()));
+                                    
+                                }
+                            }
                         }
                     }
                 }
@@ -86,16 +93,16 @@ public class EtoileJavapiProfessor {
 //          for(News n : manager.current_professor.getNews()){
 //              System.out.println("NEW: " + n.getTitle());
 //          }
-            manager.userService().getNews();
-            System.out.println("ANTES");
-            for(News n : manager.current_professor.news){
-                System.out.println(n.getId());
-            }
-            manager.userService().removeNews(24);
-            System.out.println("DEPOIS");
-            for(News n : manager.current_professor.news){
-                System.out.println(n.getId());
-            }
+//            manager.userService().getNews();
+//            System.out.println("ANTES");
+//            for(News n : manager.current_professor.news){
+//                System.out.println(n.getId());
+//            }
+//            manager.userService().removeNews(24);
+//            System.out.println("DEPOIS");
+//            for(News n : manager.current_professor.news){
+//                System.out.println(n.getId());
+//            }
 
                   
                  

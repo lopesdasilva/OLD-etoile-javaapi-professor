@@ -435,7 +435,7 @@ public class UserService implements Serializable{
         ResultSet rSet = db.queryDB(SQLStatement);
         LinkedList results = new LinkedList<Result>();
         while(rSet.next()){
-            results.add(new Result(rSet.getString(1), rSet.getString(2), rSet.getString(3)));
+            results.add(new Result(rSet.getString(1), rSet.getString(2), rSet.getString(3),rSet.getString(4),rSet.getInt(5)));
         }
  
         return results;
@@ -446,7 +446,7 @@ public class UserService implements Serializable{
         ResultSet rSet = db.queryDB(SQLStatement);
         LinkedList results = new LinkedList<Result>();
         while(rSet.next()){
-            results.add(new Result(rSet.getString(1),rSet.getString(2),rSet.getString(3)));
+            results.add(new Result(rSet.getString(1),rSet.getString(2),rSet.getString(3),rSet.getString(4),rSet.getInt(5)));
         }
         
         return results;
@@ -454,6 +454,7 @@ public class UserService implements Serializable{
     
     public LinkedList<Result> getMultipleChoiceQuestionTestResults(int test_id) throws SQLException{
         String SQLSatement = SQLInstruct.getMultipleChoiceAnswers(test_id);
+        System.out.println(SQLSatement);
         ResultSet rSet = db.queryDB(SQLSatement);
         LinkedList<Result> results = new LinkedList<Result>();
         while(rSet.next()){
@@ -464,10 +465,29 @@ public class UserService implements Serializable{
                     r.setAnswer(r.getAnswer()+", "+rSet.getString(3));
                 }
             }
-            if(!existe)results.add(new Result(rSet.getString(1),rSet.getString(2),rSet.getString(3)));
+            if(!existe)results.add(new Result(rSet.getString(1),rSet.getString(2),rSet.getString(3),rSet.getString(4),rSet.getInt(5)));
                 
         }
         return results;
+    }
+    
+    public String getResultsTXT(int discipline_id ,int module_id,int test_id ) throws SQLException{
+        LinkedList<Result> results = getResults(test_id);
+        String txt = "";
+        for(Result r : results){
+          txt=txt + "<begin question>\n";
+          txt=txt + r.getUsername()+"\n";
+          txt=txt + r.getUseremail()+"\n";
+          txt=txt + "course " + discipline_id + "\n";
+          txt=txt + "module " + module_id + "\n";
+          txt=txt + "test " + test_id + "\n";
+          txt=txt +"Question "+r.getQuestionnumber() +" - "+ r.getQuestion()+"\n";
+          txt=txt + "<begin answer>\n";
+          txt=txt + r.getAnswer()+"\n";
+          txt=txt + "<end answer>\n<end question>\n";
+        }
+        
+        return txt;
     }
     
     //REMOVER MODULOS e TESTES
@@ -496,5 +516,7 @@ public class UserService implements Serializable{
         db.updateDB(SQLStatement);
         d.setDescription(description);
     }
+    
+
     
 }
