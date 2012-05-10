@@ -475,16 +475,16 @@ public class UserService implements Serializable{
         LinkedList<Result> results = getResults(test_id);
         String txt = "";
         for(Result r : results){
-          txt=txt + "<begin question>\n";
-          txt=txt + r.getUsername()+"\n";
-          txt=txt + r.getUseremail()+"\n";
-          txt=txt + "course " + discipline_id + "\n";
-          txt=txt + "module " + module_id + "\n";
-          txt=txt + "test " + test_id + "\n";
-          txt=txt +"Question "+r.getQuestionnumber() +" - "+ r.getQuestion()+"\n";
-          txt=txt + "<begin answer>\n";
-          txt=txt + r.getAnswer()+"\n";
-          txt=txt + "<end answer>\n<end question>\n";
+          txt=txt + "<begin question>"+System.getProperty( "line.separator" );
+          txt=txt + r.getUsername()+System.getProperty( "line.separator" );
+          txt=txt + r.getUseremail()+System.getProperty( "line.separator" );
+          txt=txt + "course " + discipline_id + System.getProperty( "line.separator" );
+          txt=txt + "module " + module_id + System.getProperty( "line.separator" );
+          txt=txt + "test " + test_id + System.getProperty( "line.separator" );
+          txt=txt +"Question "+r.getQuestionnumber() +" - "+ r.getQuestion()+System.getProperty( "line.separator" );
+          txt=txt + "<begin answer>"+System.getProperty( "line.separator" );
+          txt=txt + r.getAnswer()+System.getProperty( "line.separator" );
+          txt=txt + "<end answer>"+System.getProperty( "line.separator" )+"<end question>"+System.getProperty( "line.separator" );
         }
         
         return txt;
