@@ -8,6 +8,7 @@ import etoile.javaapi.question.MultipleChoiceQuestion;
 import etoile.javaapi.question.OneChoiceQuestion;
 import etoile.javaapi.question.Question;
 import etoile.javaapi.question.URL;
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.sql.Date;
 import java.util.LinkedList;
@@ -25,22 +26,26 @@ public class EtoileJavapiProfessor {
      */
     int professor_id=1;
     
-     public static void main(String[] args) {
+     public static void main(String[] args) throws NoSuchAlgorithmException {
          System.out.println("Entrei");
         new EtoileJavapiProfessor().run();
     }
 
-    private void run() {
+    private void run() throws NoSuchAlgorithmException {
        
             ServiceManager manager;
         try {
             manager = new ServiceManager();
 
-            manager.setAuthentication("ruip", "40bd001563085fc35165329ea1ff5c5ecbdbbeef");
+            manager.setAuthentication("Admin", "2e6f9b0d5885b6010f9167787445617f553a735f");
             manager.userService().updateDisciplines(professor_id);
             
+            //manager.userService().resetPassword("ruben.npaixao@gmail.com");
+            manager.userService().changePassword("123");
             
-            System.out.println("Disciplines");
+            
+            
+           /* System.out.println("Disciplines");
             for(Discipline d: manager.getCurrentProfessor().getDisciplines()){
                 System.out.println("Modules");
                 if(d.getName().equals("Hypernetworks Course")){
@@ -58,7 +63,7 @@ public class EtoileJavapiProfessor {
                         }
                     }
                 }
-            }
+            }*/
 //            
 ////            Date begin = new Date(2010, 07, 02);
 ////

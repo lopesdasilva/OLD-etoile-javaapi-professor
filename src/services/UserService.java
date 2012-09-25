@@ -9,6 +9,8 @@ import db.SQLInstruct;
 import etoile.javaapi.question.*;
 import etoile.javapi.professor.*;
 import java.io.Serializable;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -518,5 +520,93 @@ public class UserService implements Serializable{
     }
     
 
+public void sendLinkToResetPassword(String email){
+        SendMail sm = new SendMail("smtp.gmail.com","465"); 
+        String origem = "etoileplatform@gmail.com";
+        String destino = email;
+        String assunto = "EtoilePlatform Reset Student's Password";
+        String mensagem = "Dear Student, tap this link to reset your password.\nhttp://www.google.pt" ; 
+        sm.sendMail(origem,destino,assunto,mensagem); 
+    }
+    
+    public void resetPassword(String email) throws NoSuchAlgorithmException, SQLException{
+        //GERAR Nova Password
+        
+        final int PASSWORD_LENGTH = 8;  
+        StringBuffer sb = new StringBuffer();  
+        for (int x = 0; x < PASSWORD_LENGTH; x++)  
+        {  
+          sb.append((char)((int)(Math.random()*26)+97));  
+        }  
+        
+        String password = sb.toString();
+        //Alterar Password na BD
+         //Transformar password em sha
+        MessageDigest md = MessageDigest.getInstance("SHA1");
+        md.update(password.getBytes());
+        byte[] bytes = md.digest();
+
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            int parteAlta = ((bytes[i] >> 4) & 0xf) << 4;
+            int parteBaixa = bytes[i] & 0xf;
+            if (parteAlta == 0) {
+                s.append('0');
+            }
+            s.append(Integer.toHexString(parteAlta | parteBaixa));
+        }
+        
+        String password_sha=s.toString();
+        System.out.println("PW" + password);
+        System.out.println("SHA1:"+password_sha);
+        
+        
+        String SQLStatement = SQLInstruct.changePassword(email,password_sha);
+        System.out.println(SQLStatement);
+        db.updateDB(SQLStatement);
+        
+        //Ir buscar o user
+        
+        
+        SendMail sm = new SendMail("smtp.gmail.com","465"); 
+        String origem = "etoileplatform@gmail.com";
+        String destino = email;
+        String assunto = "EtoilePlatform - Reset Professor's Password";
+        String mensagem = "Dear Professor, This is your new Password: " + sb.toString() ; 
+        sm.sendMail(origem,destino,assunto,mensagem);
+    }
+    
+        public void changePassword(String new_password) throws NoSuchAlgorithmException, SQLException{
+          
+        MessageDigest md = MessageDigest.getInstance("SHA1");
+        md.update(new_password.getBytes());
+        byte[] bytes = md.digest();
+
+        StringBuilder s = new StringBuilder();
+        for (int i = 0; i < bytes.length; i++) {
+            int parteAlta = ((bytes[i] >> 4) & 0xf) << 4;
+            int parteBaixa = bytes[i] & 0xf;
+            if (parteAlta == 0) {
+                s.append('0');
+            }
+            s.append(Integer.toHexString(parteAlta | parteBaixa));
+        } 
+            
+        String SQLStatement = SQLInstruct.changePassword_logedin(current_professor.getUsername(),s.toString());
+        System.out.println(SQLStatement);
+        db.updateDB(SQLStatement);
+        
+        //Ir buscar o user
+        
+        
+        SendMail sm = new SendMail("smtp.gmail.com","465"); 
+        String origem = "etoileplatform@gmail.com";
+        String destino = current_professor.getEmail();
+        String assunto = "EtoilePlatform Professor's Password Changed";
+        String mensagem = "Dear Professor, This is your new Password: " + new_password ; 
+        sm.sendMail(origem,destino,assunto,mensagem);
+                
+        }    
+    
     
 }

@@ -315,6 +315,14 @@ public class SQLInstruct implements Serializable {
     public static String removeNews(int id) {
         return "DELETE FROM news WHERE id='"+id+"'";
     }
+
+    public static String changePassword(String email, String password) {
+        return "UPDATE professor SET password='"+password+"' WHERE professor.email='"+email+"'";
+    }
+
+    public static String changePassword_logedin(String username, String password) {
+        return "UPDATE professor SET password='"+password+"' WHERE professor.username='"+username+"'";
+    }
        
 }
 
