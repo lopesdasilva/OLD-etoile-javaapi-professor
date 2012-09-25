@@ -323,6 +323,10 @@ public class SQLInstruct implements Serializable {
     public static String changePassword_logedin(String username, String password) {
         return "UPDATE professor SET password='"+password+"' WHERE professor.username='"+username+"'";
     }
+
+    public static String validEmail(String email) {
+        return "SELECT email,username FROM professor WHERE email='"+email+"'";
+    }
        
 }
 

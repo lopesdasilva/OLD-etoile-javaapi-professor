@@ -531,7 +531,10 @@ public void sendLinkToResetPassword(String email){
     
     public void resetPassword(String email) throws NoSuchAlgorithmException, SQLException{
         //GERAR Nova Password
-        
+        String SQLString = SQLInstruct.validEmail(email);
+        ResultSet rSet = db.queryDB(SQLString);
+        try{
+        if(rSet.next()){
         final int PASSWORD_LENGTH = 8;  
         StringBuffer sb = new StringBuffer();  
         for (int x = 0; x < PASSWORD_LENGTH; x++)  
@@ -574,6 +577,12 @@ public void sendLinkToResetPassword(String email){
         String assunto = "EtoilePlatform - Reset Professor's Password";
         String mensagem = "Dear Professor, This is your new Password: " + sb.toString() ; 
         sm.sendMail(origem,destino,assunto,mensagem);
+        }else{
+            throw new SQLException();
+        }
+        }catch(SQLException e){
+            throw e;
+        }
     }
     
         public void changePassword(String new_password) throws NoSuchAlgorithmException, SQLException{

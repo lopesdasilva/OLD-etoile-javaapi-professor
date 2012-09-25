@@ -37,11 +37,11 @@ public class EtoileJavapiProfessor {
         try {
             manager = new ServiceManager();
 
-            manager.setAuthentication("Admin", "2e6f9b0d5885b6010f9167787445617f553a735f");
-            manager.userService().updateDisciplines(professor_id);
+            //manager.setAuthentication("Admin", "2e6f9b0d5885b6010f9167787445617f553a735f");
+            //manager.userService().updateDisciplines(professor_id);
             
-            //manager.userService().resetPassword("ruben.npaixao@gmail.com");
-            manager.userService().changePassword("123");
+            manager.userService().resetPassword("sapo.npaixao@gmail.com");
+            //manager.userService().changePassword("123");
             
             
             
