@@ -575,7 +575,7 @@ public void sendLinkToResetPassword(String email){
         String origem = "etoileplatform@gmail.com";
         String destino = email;
         String assunto = "EtoilePlatform - Reset Professor's Password";
-        String mensagem = "Dear Professor, This is your new Password: " + sb.toString() ; 
+        String mensagem = "Dear "+rSet.getString(2)+", This is your new Password: " + sb.toString() ; 
         sm.sendMail(origem,destino,assunto,mensagem);
         }else{
             throw new SQLException();
@@ -612,7 +612,7 @@ public void sendLinkToResetPassword(String email){
         String origem = "etoileplatform@gmail.com";
         String destino = current_professor.getEmail();
         String assunto = "EtoilePlatform Professor's Password Changed";
-        String mensagem = "Dear Professor, This is your new Password: " + new_password ; 
+        String mensagem = "Dear "+current_professor.getUsername()+", This is your new Password: " + new_password ; 
         sm.sendMail(origem,destino,assunto,mensagem);
                 
         }    
